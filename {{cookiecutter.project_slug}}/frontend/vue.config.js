@@ -1,6 +1,5 @@
 // vue.config.js
 module.exports = {
-  lintOnSave: false,
   devServer: {
     hot: true,
     hotOnly: true,

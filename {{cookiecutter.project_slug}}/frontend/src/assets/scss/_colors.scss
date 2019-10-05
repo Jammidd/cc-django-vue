@@ -1,0 +1,68 @@
+$primary-color: #41C8B8;
+$secondary-color: #009888;
+$accent-color: #ffffff;
+
+$primary-text-color: #303133;
+$regular-text-color: #606266;
+$secondary-text-color: #909399;
+$placeholder-text-color: #C0C4CC;
+
+$base-light-color: #DCDFE6;
+$light-color: #EEEEEE;
+$lighter-color: #EDEDED;
+$extra-light-color: #EFEFEF;
+
+$bg-accent-color: #F5F5F5;
+$bg-grey-color: #f8f8f8;
+$text-color: #4e4e4e;
+$warning-color: #FF5757;
+
+.primary-color { color: $primary-color !important; }
+.secondary-color { color: $secondary-color !important; }
+.accent-color { color: $accent-color !important; }
+
+.primary-text { color: $primary-text-color !important; }
+.regular-text { color: $regular-text-color !important; }
+.secondary-text { color: $secondary-text-color !important; }
+.placeholder-text { color: $placeholder-text-color !important; }
+
+.white-text { color: white !important; }
+
+.light-base-text { color: $base-light-color !important; }
+.light-text { color: $light-color !important; }
+.lighter-text { color: $lighter-color !important; }
+.extra-light-text { color: $extra-light-color !important; }
+
+.muted-color { color: $text-color !important; }
+.bg-accent-color { color: $bg-accent-color !important; }
+.warning-text { color: $warning-color !important; }
+
+.primary-background { background: $primary-color !important; }
+.secondary-background { background: $secondary-color !important; }
+.white-background { background: white !important; }
+
+.primary-gradient {
+  background: -webkit-linear-gradient(-45deg, from(#4AC1BB), color-stop(60%, #9DDDB6), to(#D1ECB5));
+  background: linear-gradient(135deg, #4AC1BB 0%, #9DDDB6 60%, #D1ECB5 100%);
+  background-repeat: no-repeat;
+  background-size: cover; 
+}
+
+.base-light-background { background: $base-light-color !important; }
+.light-background { background: $light-color !important; }
+.lighter-background { background: $lighter-color !important; }
+.extra-light-background { background: $extra-light-color !important; }
+.warning-background { background: $warning-color !important; }
+
+.bg-accent-background {
+    background: $bg-accent-color;
+}
+
+.primary-border {
+    border-color: $primary-color;
+}
+
+.facebook-login {
+    background: #4067AC;
+    color: #FFFFFF;
+}

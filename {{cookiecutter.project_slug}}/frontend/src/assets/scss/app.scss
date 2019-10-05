@@ -1,0 +1,14 @@
+@import 'mixins';
+@import 'colors';
+@import 'alignments';
+@import 'typography';
+@import 'components';
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}

@@ -38,7 +38,7 @@ def delete_api_files():
             '.graphqlrc',
             'backend/config/schema.py',
             'backend/apps/users/schema.py',
-            'frontend/src/apollo.js',
+            'frontend/src/services/apollo.js',
         ]
         shutil.rmtree(os.path.join(PROJECT_DIRECTORY, 'frontend/src/graphql'))
     else:
@@ -46,6 +46,7 @@ def delete_api_files():
             'backend/config/api.py',
             'backend/apps/users/views.py',
             'backend/apps/users/serializers.py',
+            'frontend/src/services/api.js'
         ]
         shutil.rmtree(os.path.join(PROJECT_DIRECTORY, 'frontend/src/store'))
     

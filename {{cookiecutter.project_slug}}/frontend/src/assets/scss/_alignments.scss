@@ -1,0 +1,101 @@
+$base-padding: 20px;
+$base-spacing: 20px;
+
+.pad { padding: $base-padding !important; }
+.pad-quarter { padding: ($base-padding / 4) !important; }
+.pad-half { padding: ($base-padding / 2) !important; }
+.pad-double { padding: ($base-padding * 2) !important; }
+.pad-quad { padding: ($base-padding * 4) !important; }
+.pad-none { padding: 0 !important; }
+
+.pad-sides { padding-right: $base-padding !important; padding-left: $base-padding !important; }
+.pad-sides--quarter { padding-right: ($base-padding / 4) !important; padding-left: ($base-padding / 4) !important; }
+.pad-sides--half { padding-right: ($base-padding / 2) !important; padding-left: ($base-padding / 2) !important; }
+.pad-sides--double { padding-right: ($base-padding * 2) !important; padding-left: ($base-padding * 2) !important; }
+.pad-sides--quad { padding-right: ($base-padding * 4) !important; padding-left: ($base-padding * 4) !important; }
+.pad-sides--none {padding-right: 0 !important; padding-left: 0 !important;  }
+
+.pad-ends { padding-top: $base-padding !important; padding-bottom: $base-padding !important; }
+.pad-ends--quarter { padding-top: ($base-padding / 4) !important; padding-bottom: ($base-padding / 4) !important; }
+.pad-ends--half { padding-top: ($base-padding / 2) !important; padding-bottom: ($base-padding / 2) !important; }
+.pad-ends--double { padding-top: ($base-padding * 2) !important; padding-bottom: ($base-padding * 2) !important; }
+.pad-ends--quad { padding-top: ($base-padding * 4) !important; padding-bottom: ($base-padding * 4) !important; }
+.pad-ends--none { padding-top: 0 !important; padding-bottom: 0 !important; }
+
+.pad-top { padding-top: $base-padding !important; }
+.pad-top--quarter { padding-top: ($base-padding / 4) !important; }
+.pad-top--half { padding-top: ($base-padding / 2) !important; }
+.pad-top--double { padding-top: ($base-padding * 2) !important; }
+.pad-top--quad { padding-top: ($base-padding * 4) !important; }
+.pad-top--none { padding-top: 0 !important; }
+
+.pad-bottom { padding-bottom: $base-padding !important; }
+.pad-bottom--quarter { padding-bottom: ($base-padding / 4) !important; }
+.pad-bottom--half { padding-bottom: ($base-padding / 2) !important; }
+.pad-bottom--three-quarters { padding-bottom: ($base-padding * 0.75) !important; }
+.pad-bottom--double { padding-bottom: ($base-padding * 2) !important; }
+.pad-bottom--quad { padding-bottom: ($base-padding * 4) !important; }
+.pad-bottom--none { padding-bottom: 0 !important; }
+
+.pad-right { padding-right: $base-spacing; }
+.pad-right--quarter { padding-right: ($base-spacing / 4); }
+.pad-right--half { padding-right: ($base-spacing / 2); }
+.pad-right--double { padding-right: ($base-spacing * 2); }
+.pad-right--quad { padding-right: ($base-spacing * 4); }
+.pad-right--none { padding-right: 0 !important; }
+
+.pad-left { padding-left: $base-spacing; }
+.pad-left--quarter { padding-left: ($base-spacing / 4); }
+.pad-left--half { padding-left: ($base-spacing / 2); }
+.pad-left--double { padding-left: ($base-spacing * 2); }
+.pad-left--quad { padding-left: ($base-spacing * 4); }
+.pad-left--none { padding-left: 0 !important; }
+
+.space { margin: $base-spacing !important; }
+.space-quarter { margin: ($base-spacing / 4) !important; }
+.space-half { margin: ($base-spacing / 2) !important; }
+.space-double { margin: ($base-spacing * 2) !important; }
+.space-quad { margin: ($base-spacing * 4) !important; }
+.space-none { margin: 0 !important; }
+
+.space-ends { margin-top: $base-spacing !important; margin-bottom: $base-spacing !important; }
+.space-ends--quarter { margin-top: ($base-spacing / 4) !important; margin-bottom: ($base-spacing / 4) !important; }
+.space-ends--half { margin-top: ($base-spacing / 2) !important; margin-bottom: ($base-spacing / 2) !important; }
+.space-ends--double { margin-top: ($base-spacing * 2) !important; margin-bottom: ($base-spacing * 2) !important; }
+.space-ends--quad { margin-top: ($base-spacing * 4) !important; margin-bottom: ($base-spacing * 4) !important; }
+.space-ends--none { margin-top: 0 !important; margin-bottom: 0 !important; }
+
+.space-sides { margin-right: $base-spacing; margin-left: $base-spacing; }
+.space-sides--quarter { margin-right: ($base-spacing / 4) !important; margin-left: ($base-spacing / 4) !important; }
+.space-sides--half { margin-right: ($base-spacing / 2) !important; margin-left: ($base-spacing / 2) !important; }
+.space-sides--double { margin-right: ($base-spacing * 2) !important; margin-left: ($base-spacing * 2) !important; }
+.space-sides--quad { margin-right: ($base-spacing * 4) !important; margin-left: ($base-spacing * 4) !important; }
+.space-sides--none { margin-right: 0 !important; margin-left: 0 !important; }
+
+.space-top { margin-top: $base-spacing !important; }
+.space-top--quarter { margin-top: ($base-spacing / 4) !important; }
+.space-top--half { margin-top: ($base-spacing / 2) !important; }
+.space-top--double { margin-top: ($base-spacing * 2) !important; }
+.space-top--quad { margin-top: ($base-spacing * 4) !important; }
+.space-top--none { margin-top: 0 !important; }
+
+.space-bottom { margin-bottom: $base-spacing !important; }
+.space-bottom--quarter { margin-bottom: ($base-spacing / 4) !important; }
+.space-bottom--half { margin-bottom: ($base-spacing / 2) !important; }
+.space-bottom--double { margin-bottom: ($base-spacing * 2) !important; }
+.space-bottom--quad { margin-bottom: ($base-spacing * 4) !important; }
+.space-bottom--none { margin-bottom: 0 !important; }
+
+.space-right { margin-right: $base-spacing !important; }
+.space-right--quarter { margin-right: ($base-spacing / 4) !important; }
+.space-right--half { margin-right: ($base-spacing / 2) !important; }
+.space-right--double { margin-right: ($base-spacing * 2) !important; }
+.space-right--quad { margin-right: ($base-spacing * 4) !important; }
+.space-right--none { margin-right: 0 !important; }
+
+.space-left { margin-left: $base-spacing !important; }
+.space-left--quarter { margin-left: ($base-spacing / 4) !important; }
+.space-left--half { margin-left: ($base-spacing / 2) !important; }
+.space-left--double { margin-left: ($base-spacing * 2) !important; }
+.space-left--quad { margin-left: ($base-spacing * 4) !important; }
+.space-left--none { margin-left: 0 !important; }

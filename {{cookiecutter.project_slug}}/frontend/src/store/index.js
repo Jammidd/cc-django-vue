@@ -1,16 +1,20 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistentState from 'vuex-persistedstate'
 
-import users from '@/store/services/users'
-import auth from '@/store/modules/auth'
+import UserModule from './UserModule'
 
 Vue.use(Vuex)
 
-const store = new Vuex.Store({
+export default new Vuex.Store({
   modules: {
-    users,
-    auth
-  }
+    UserModule
+  },
+  plugins: [createPersistentState({
+    storage: {
+      getItem: key => localStorage.getItem(key),
+      setItem: (key, value) => localStorage.setItem(key, value),
+      removeItem: key => localStorage.removeItem(key)
+    }
+  })]
 })
-
-export default store

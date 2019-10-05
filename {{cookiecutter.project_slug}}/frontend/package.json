@@ -4,83 +4,43 @@
   "private": true,
   "scripts": {
     "serve": "npm i && vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit"
+    "build": "vue-cli-service build"
   },
   "dependencies": {
     "axios": "^0.18.0",
+    {% if cookiecutter.ui == 'Bootstrap' %}
+    "bootstrap": "^4.3.1",
+    "bootstrap-vue": "^2.0.2",
+    {% endif %}
+    "core-js": "^2.6.5",
+    {% if cookiecutter.api == 'GraphQL' %}
+    "graphql": "^14.4.2",
+    {% endif %}
+    "lodash": "^4.17.15",
+    "moment": "^2.22.2",
+    "moment-timezone": "^0.5.25",
     "register-service-worker": "^1.5.2",
-    "vue": "^2.5.17",
-    {% if cookiecutter.api == "GraphQL" %}"vue-apollo": "^3.0.0-beta.20",{% endif %}
-    "vue-router": "^3.0.1",
-    {% if cookiecutter.use_sentry == 'y' %}"vue-raven": "^1.0.0",{% endif %}
-    {% if cookiecutter.analytics == "Google Analytics" %}"vue-analytics": "^5.16.0",{% endif %}
-    {% if cookiecutter.analytics == "Yandex Metrika" %}{% endif %}
-    "vuex": "^3.0.1"
+    {% if cookiecutter.ui == 'Semantic UI' %}
+    "semantic-ui-vue": "0.8.1",
+    {% endif %}
+    "vue": "^2.6.10",
+    {% if cookiecutter.api == 'GraphQL' %}
+    "vue-apollo": "^3.0.0-rc.2",
+    {% elif cookiecutter.api == 'REST' %}
+    "vue-axios": "^2.1.4",
+    {% endif %}
+    "vue-router": "^3.0.3",
+    {% if cookiecutter.ui == 'Vuetify' %}
+    "vuetify": "^1.5.7",
+    {% endif %}
+    "vuex": "^3.0.1",
+    "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.0.1",
-    "@vue/cli-plugin-eslint": "^3.0.1",
-    "@vue/cli-plugin-pwa": "^3.0.1",
-    "@vue/cli-plugin-unit-jest": "^3.0.1",
-    "@vue/cli-service": "^3.0.1",
-    "@vue/eslint-config-standard": "^3.0.1",
-    "@vue/test-utils": "^1.0.0-beta.24",
-    "babel-core": "^6.26.3",
-    "babel-jest": "^23.4.2",
-    "node-sass": "^4.9.3",
-    {% if cookiecutter.api == "GraphQL" %}
-    "graphql-tag": "^2.9.2",
-    "vue-cli-plugin-apollo": "^0.16.4",
-    {% endif %}
+    "@vue/cli-plugin-babel": "^3.11.0",
+    "@vue/cli-service": "^3.11.0",
+    "node-sass": "^4.9.0",
     "sass-loader": "^7.1.0",
-    "vue-template-compiler": "^2.5.17"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "@vue/standard"
-    ],
-    "rules": {},
-    "parserOptions": {
-      "parser": "babel-eslint"
-    }
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ],
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "jsx",
-      "json",
-      "vue"
-    ],
-    "transform": {
-      "^.+\\.vue$": "vue-jest",
-      ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
-      "^.+\\.jsx?$": "babel-jest"
-    },
-    "moduleNameMapper": {
-      "^@/(.*)$": "<rootDir>/src/$1"
-    },
-    "snapshotSerializers": [
-      "jest-serializer-vue"
-    ],
-    "testMatch": [
-      "<rootDir>/(tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx))"
-    ]
+    "vue-template-compiler": "^2.6.10"
   }
 }

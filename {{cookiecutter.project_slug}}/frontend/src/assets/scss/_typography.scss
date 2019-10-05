@@ -1,0 +1,23 @@
+h1 { font-size: 2rem; font-weight: 700; }
+h2 { font-size: 1.75rem; font-weight: 700; }
+h3 { font-size: 1.50rem; font-weight: 700; letter-spacing: 2px; }
+h4 { font-size: 1.25rem; font-weight: 700; }
+h5 { font-size: 1.00rem; font-weight: 700; }
+h6 { font-size: 0.75rem; font-weight: 700; }
+
+.fine-print {
+  color: $regular-text-color;
+  font-size: 0.5rem;
+}
+
+.small-print {
+  font-size: 0.8rem;
+}
+
+.large-print {
+  font-size: 1.4rem;
+}
+
+.bold {
+  font-weight: bolder;
+}

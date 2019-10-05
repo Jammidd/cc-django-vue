@@ -14,21 +14,39 @@ ROOT_DIR = environ.Path(__file__) - 2
 
 # Load operating system environment variables and then prepare to use them
 env = environ.Env()
+# .env file, should load only in development environment
+READ_DOT_ENV_FILE = env.bool('DJANGO_READ_DOT_ENV_FILE', default=True)
 
-# APP CONFIGURATION
+if READ_DOT_ENV_FILE:
+    # Operating System Environment variables have precedence over variables defined in the .env file,
+    # that is to say variables from the .env files will only be used if not defined
+    # as environment variables.
+    env_file = str(ROOT_DIR.path('.env'))
+    print('Loading : {}'.format(env_file))
+    env.read_env(env_file)
+    print('The .env file has been loaded. See base.py for more information')
+
+# region APP CONFIGURATION
 # ------------------------------------------------------------------------------
 DJANGO_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     'django.contrib.staticfiles',
     'django.contrib.admin',
 ]
 
 THIRD_PARTY_APPS = [
+    'allauth',
+    'allauth.socialaccount',
+    'allauth.account',
+    'corsheaders',
     {% if cookiecutter.api == 'REST' %}
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
     {% elif cookiecutter.api == 'GraphQL' %}
     'graphene_django',
     {% endif %}
@@ -39,12 +57,13 @@ LOCAL_APPS = [
     'apps.users',
 ]
 
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+# endregion
 
-# MIDDLEWARE CONFIGURATION
+# region MIDDLEWARE CONFIGURATION
 # ------------------------------------------------------------------------------
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -54,22 +73,38 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# DEBUG
+CORS_ORIGIN_ALLOW_ALL = True
+# endregion
+
+# region DEBUG CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
 DEBUG = env.bool('DEBUG')
 SECRET_KEY = env.str('SECRET_KEY')
+# endregion
 
-# DOMAINS
+# region DOMAIN CONFIGURATION
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 DOMAIN = env.str('DOMAIN')
+# endregion
 
-# EMAIL CONFIGURATION
+# region EMAIL CONFIGURATION
 # ------------------------------------------------------------------------------
-EMAIL_PORT = env.int('EMAIL_PORT', default='1025')
-EMAIL_HOST = env.str('EMAIL_HOST', default='mailhog')
+{% if cookiecutter.use_sparkpost != 'y' %}
+EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
+{% endif %}
+{% if cookiecutter.use_sparkpost == 'y' %}
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.sparkpostmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'SMTP_Injection'
+EMAIL_HOST_PASSWORD = env('DJANGO_SPARKPOST_API_KEY', default="")
+DEFAULT_FROM_EMAIL = env('DJANGO_FROM_EMAIL', default="")
+{% endif %}
+# endregion
 
-# MANAGER CONFIGURATION
+# region MANAGER CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = [
@@ -78,78 +113,66 @@ ADMINS = [
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
+# endregion
 
-# DATABASE CONFIGURATION
+# region DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     'default': {
+        {% if cookiecutter.db == 'MySQL' %}
+        'ENGINE': 'django.db.backends.mysql',
+        {% elif cookiecutter.db == 'PostgreSQL' %}
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env.str('POSTGRES_DB'),
-        'USER': env.str('POSTGRES_USER'),
-        'PASSWORD': env.str('POSTGRES_PASSWORD'),
-        'HOST': 'postgres',
-        'PORT': 5432,
-    },
+        {% elif cookiecutter.db == 'MongoDB' %}
+        'ENGINE': 'djongo',
+        {% endif %}
+        'NAME': env.str('DB_NAME'),
+        {% if cookiecutter.db != 'MongoDB' %}
+        'USER': env.str('DB_USER'),
+        'PASSWORD': env.str('DB_PASSWORD'),
+        'HOST': env.str('DB_HOST'),
+        'PORT': {% if cookiecutter.db == 'MySQL' %}'3306'{% elif cookiecutter.db == 'PostgreSQL' %}'5432'{% endif %}
+        {% endif %}
+    }
 }
+# endregion
 
-# GENERAL CONFIGURATION
+# region LOCALE CONFIGURATION
 # ------------------------------------------------------------------------------
-# Local time zone for this installation. Choices can be found here:
-# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-# although not all choices may be available on all operating systems.
-# In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'UTC'
-
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#language-code
+TIME_ZONE = '{{ cookiecutter.timezone }}'
 LANGUAGE_CODE = 'en-us'
-
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#use-i18n
 USE_I18N = True
-
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#use-l10n
 USE_L10N = True
-
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#use-tz
 USE_TZ = True
+# endregion
 
-# STATIC FILE CONFIGURATION
+# region STATIC FILE CONFIGURATION
 # ------------------------------------------------------------------------------
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#static-root
 STATIC_ROOT = str(ROOT_DIR('staticfiles'))
-
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#static-url
 STATIC_URL = '/staticfiles/'
-
-# See: https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
 STATICFILES_DIRS = [
     str(ROOT_DIR('static')),
 ]
-
-# See: https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
+# endregion
 
-# MEDIA CONFIGURATION
+# region MEDIA CONFIGURATION
 # ------------------------------------------------------------------------------
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
 MEDIA_ROOT = str(ROOT_DIR('media'))
-
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = '/media/'
+# endregion
 
-# URL Configuration
+# region URL CONFIGURATION
 # ------------------------------------------------------------------------------
 ROOT_URLCONF = 'config.urls'
-
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 WSGI_APPLICATION = 'config.wsgi.application'
+# endregion
 
-# TEMPLATE CONFIGURATION
+# region TEMPLATE CONFIGURATION
 # ------------------------------------------------------------------------------
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -173,51 +196,48 @@ TEMPLATES = [
         },
     },
 ]
+# endregion
 
-
-# PASSWORD STORAGE SETTINGS
+# region PASSWORD CONFIGURATION
 # ------------------------------------------------------------------------------
-# See https://docs.djangoproject.com/en/dev/ref/settings/#password-hashers
 PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
-    'django.contrib.auth.hashers.Argon2PasswordHasher',
     'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
     'django.contrib.auth.hashers.BCryptPasswordHasher',
 ]
 
-# PASSWORD VALIDATION
-# https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
-# ------------------------------------------------------------------------------
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
     {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
+# endregion
 
-# AUTHENTICATION CONFIGURATION
+# region AUTHENTICATION CONFIGURATION
 # ------------------------------------------------------------------------------
 AUTHENTICATION_BACKENDS = [
     {% if cookiecutter.api == 'GraphQL' %}'graphql_jwt.backends.JSONWebTokenBackend',{% endif %}
     'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
 ]
 
-# Custom user app defaults
-# Select the correct user model
 AUTH_USER_MODEL = 'users.User'
-
+# endregion
 
 {% if cookiecutter.api == 'REST' %}
-# DJANGO REST FRAMEWORK
+# region REST CONFIGURATION
 # ------------------------------------------------------------------------------
 REST_FRAMEWORK = {
     'UPLOADED_FILES_USE_URL': False,
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication'
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ],
-    'DEFAULT_PERMISSION_CLASSES': [],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',
         'rest_framework.parsers.FormParser',
@@ -225,8 +245,9 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.FileUploadParser'
     ]
 }
+# endregion
 {% elif cookiecutter.api == 'GraphQL' %}
-# Graphene
+# region GraphQL CONFIGURATION
 GRAPHENE = {
     'SCHEMA': 'config.schema.schema',
      'MIDDLEWARE': [
@@ -245,12 +266,12 @@ GRAPHQL_JWT = {
     'JWT_AUTH_HEADER': 'authorization',
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
 }
+# endregion
 {% endif %}
 
 
 {% if cookiecutter.use_sentry == 'y' %}
-# raven sentry client
-# See https://docs.sentry.io/clients/python/integrations/django/
+# region RAVEN CONFIGURATION
 INSTALLED_APPS += ['raven.contrib.django.raven_compat']
 RAVEN_MIDDLEWARE = ['raven.contrib.django.raven_compat.middleware.SentryResponseErrorIdMiddleware']
 MIDDLEWARE = RAVEN_MIDDLEWARE + MIDDLEWARE
@@ -309,4 +330,5 @@ LOGGING = {
 RAVEN_CONFIG = {
     'DSN': SENTRY_DSN
 }
+# endregion
 {% endif %}
