@@ -24,6 +24,7 @@
     "semantic-ui-vue": "0.8.1",
     {% endif %}
     "vue": "^2.6.10",
+    {% if cookiecutter.analytics == "Google Analytics" %}"vue-analytics": "^5.16.0",{% endif %}
     {% if cookiecutter.api == 'GraphQL' %}
     "vue-apollo": "^3.0.0-rc.2",
     {% elif cookiecutter.api == 'REST' %}
