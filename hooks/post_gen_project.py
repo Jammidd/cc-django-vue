@@ -49,6 +49,13 @@ def delete_api_files():
             'frontend/src/services/api.js'
         ]
         shutil.rmtree(os.path.join(PROJECT_DIRECTORY, 'frontend/src/store'))
+
+    if '{{ cookiecutter.ui }}' != 'Tailwind CSS':
+      files + [
+        'frontend/src/assets/scss/tailwind.css',
+        'frontend/tailwind.js',
+        'frontend/postcss.config.js'
+      ]
     
     for filename in files:
         os.remove(os.path.join(PROJECT_DIRECTORY, filename))

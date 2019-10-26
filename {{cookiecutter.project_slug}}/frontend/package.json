@@ -23,6 +23,9 @@
     {% if cookiecutter.ui == 'Semantic UI' %}
     "semantic-ui-vue": "0.8.1",
     {% endif %}
+    {% if cookiecutter.ui == 'Tailwind CSS' %}
+    "tailwindcss": "^1.1.2",
+    {% endif %}
     "vue": "^2.6.10",
     {% if cookiecutter.analytics == "Google Analytics" %}"vue-analytics": "^5.16.0",{% endif %}
     {% if cookiecutter.api == 'GraphQL' %}

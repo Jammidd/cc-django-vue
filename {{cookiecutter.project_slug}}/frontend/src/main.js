@@ -57,6 +57,8 @@ Vue.use(Vuetify, {
   //   'muted': '#B6B6B6'
   // }
 })
+{% elif cookiecutter.ui == 'Tailwind CSS' %}
+import '@/assets/scss/tailwind.css'
 {% endif %}
 
 import '@/assets/scss/app.scss'

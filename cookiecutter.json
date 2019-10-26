@@ -12,7 +12,7 @@
     "timezone": "UTC",
     "api": ["REST", "GraphQL"],
     "db": ["PostgreSQL", "MySQL", "MongoDB"],
-    "ui": ["Bootstrap", "Semantic UI", "Vuetify"],
+    "ui": ["Bootstrap", "Semantic UI", "Vuetify", "Tailwind CSS"],
     "backups": "y",
     
     "==================== INTEGRATIONS ===================": " ",
