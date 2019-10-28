@@ -19,7 +19,8 @@ services:
     env_file: .env
 
   frontend:
-    image: node:10-alpine
+    build: 
+      context: ./frontend-nuxt
     command: npm run dev
     volumes:
       - ./.env:/app/.env:ro

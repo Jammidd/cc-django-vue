@@ -38,9 +38,9 @@ export default {
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
     '@nuxtjs/tailwindcss',
     {% if cookiecutter.analytics == 'Google Analytics' %}
-    '@nuxtjs/google-analytics', {
+    ['@nuxtjs/google-analytics', {
       id: 'UA-12301-2'
-    },
+    }],
     {% endif %}
   ],
   /*

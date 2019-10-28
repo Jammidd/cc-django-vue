@@ -5,9 +5,9 @@
   "author": "",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "npm i && nuxt",
     "build": "nuxt build",
-    "start": "nuxt start",
+    "start": "npm i && nuxt start",
     "generate": "nuxt generate",
     "test": "jest"
   },
