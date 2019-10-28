@@ -37,7 +37,7 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
     '@nuxtjs/tailwindcss',
-    {% cookiecutter.analytics == 'Google Analytics' %}
+    {% if cookiecutter.analytics == 'Google Analytics' %}
     '@nuxtjs/google-analytics', {
       id: 'UA-12301-2'
     },
