@@ -21,7 +21,7 @@ services:
   frontend:
     build: 
       context: ./frontend
-    command: npm run dev
+    command: npm run serve
     volumes:
       - ./.env:/app/.env:ro
       - ./frontend:/app
