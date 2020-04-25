@@ -17,6 +17,7 @@
     "==================== INTEGRATIONS ===================": " ",
     "use_sentry": "y",
     "use_portainer": "y",
+    "use_sparkpost": "y",
     "email_provider": ["sparkpost", "mailchimp", "mailgun", "mailhog", "console"],
     "analytics": ["Google Analytics", "None"]
 }
