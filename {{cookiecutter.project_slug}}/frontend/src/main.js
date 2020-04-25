@@ -11,20 +11,11 @@ import { EventBus } from '@/services/EventBus'
 
 {% if cookiecutter.analytics == 'Google Analytics' %}import VueAnalytics from 'vue-analytics'{% endif %}
 {% if cookiecutter.analytics == 'Yandex Metrika' %}import VueYandexMetrika from 'vue-yandex-metrika'{% endif %}
-{% if cookiecutter.use_sentry == 'y' %}import VueRaven from 'vue-raven'{% endif %}
 
 import App from '@/App.vue'
 import './registerServiceWorker'
 
 Vue.config.productionTip = false
-
-{% if cookiecutter.use_sentry == 'y' %}
-// Sentry for logging frontend errors
-Vue.use(VueRaven, {
-  dsn: process.env.VUE_APP_SENTRY_PUBLIC_DSN,
-  disableReport: process.env.NODE_ENV === 'development'
-})
-{% endif %}
 
 {% if cookiecutter.analytics == 'Google Analytics' %}
 // more info: https://github.com/MatteoGabriele/vue-analytics
